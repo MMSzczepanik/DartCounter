@@ -1,9 +1,9 @@
-import Calculator from "./components/Calculator/Calculator";
+import X01View from "./features/x01View/x01View";
 
 function App() {
   return (
 
-    <Calculator />
+    <X01View />
   );
 }
 
