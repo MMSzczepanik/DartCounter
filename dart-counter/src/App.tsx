@@ -3,7 +3,7 @@ import ViewMenager from "./features/ViewManager/ViewMenager";
 
 function App() {
   return (
-    <Grid container alignItems={"center"}>
+    <Grid container className="p-4">
       <ViewMenager />
     </Grid>
   );
