@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { API_KEY, USERNAME } from '../env';
 import { Tournament } from '../types/tournaments';
+import { Participant } from '../types/participant';
 
 export const tournamentsApi = createApi({
     reducerPath: 'tournamentsApi',
@@ -14,7 +15,10 @@ export const tournamentsApi = createApi({
       getTournaments: builder.query<Tournament[], void>({
         query: () => `tournaments.json?api_key=${API_KEY}`,
       }),
+      getParticipantsByTournamentId: builder.query<Participant[], number>({
+        query: (tournamentId) => `tournaments/${tournamentId}/participants.json?api_key=${API_KEY}`,
+      }),
     }),
   })
 
-  export const {useGetTournamentsQuery } = tournamentsApi
+  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery } = tournamentsApi
