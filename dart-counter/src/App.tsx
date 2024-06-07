@@ -1,9 +1,11 @@
-import X01View from "./features/x01View/x01View";
+import { Grid } from "@mui/material";
+import ViewMenager from "./features/ViewManager/ViewMenager";
 
 function App() {
   return (
-
-    <X01View />
+    <Grid container alignItems={"center"}>
+      <ViewMenager />
+    </Grid>
   );
 }
 

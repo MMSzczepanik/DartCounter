@@ -1,29 +1,27 @@
 import { Children, FunctionComponent } from "react";
-import Calculator from "../../components/Calculator/Calculator";
+import Calculator from "./children/Calculator/Calculator";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import ScoreView from "../../components/ScoreView/ScoreView";
-import { Col, Grid, Row } from "react-flexbox-grid";
+import ScoreView from "./children/ScoreView/ScoreView";
 import { Player } from "../../types/player";
+import { Grid } from "@mui/material";
 
 const X01View: FunctionComponent = () => {
     const {players, actualPlayer, actualLeg} = useSelector((state: RootState) => state.counter.game)
 
     return (
-        <Grid>
-            <Row>
+        <Grid container direction={'row'} justifyContent='center' spacing={3}>
+            <Grid container direction='row' xs={8}>
                 {Children.toArray(
                             players.map((player, key) => (
-                                <Col>
-                                    <ScoreView actualPlayerId={actualPlayer} actualScore={getActualScoreForPlayer(player, actualLeg)} index={key}/>
-                                </Col>
+                                    <ScoreView actualPlayerId={actualPlayer} actualScore={getActualScoreForPlayer(player, actualLeg)} player={player} index={key}/>
                             ))
                         )
                 }
-            </Row>
-            <Row>
-        <Calculator />
-        </Row>
+            </Grid>
+            <Grid xs={4}>
+                <Calculator />
+            </Grid>
     </Grid>
     )
 }
