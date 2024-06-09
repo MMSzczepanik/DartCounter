@@ -3,7 +3,7 @@ import ViewMenager from "./features/ViewManager/ViewMenager";
 
 function App() {
   return (
-    <Grid container className="p-4">
+    <Grid container className="p-4 bg-slate-500">
       <ViewMenager />
     </Grid>
   );

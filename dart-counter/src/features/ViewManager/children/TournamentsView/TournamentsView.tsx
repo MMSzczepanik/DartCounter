@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const TournamentsView: FunctionComponent<IProps> = ({tournaments}) => 
-    <Grid item direction='column' className="min-w-full">
+    <Grid className="min-w-full">
         {tournaments.map((tournament, key) => <TournamentView tournament={tournament} key={key}/>)}
     </Grid>
 

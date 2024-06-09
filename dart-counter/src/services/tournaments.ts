@@ -14,7 +14,9 @@ export const tournamentsApi = createApi({
     endpoints: (builder) => ({
       getTournaments: builder.query<Tournament[], void>({
         query: () => `tournaments.json?api_key=${API_KEY}`,
-      }),
+        transformResponse: (response: Tournament[]) => 
+           response.filter(tournament => tournament.tournament.started_at)
+          }),
       getParticipantsByTournamentId: builder.query<Participant[], number>({
         query: (tournamentId) => `tournaments/${tournamentId}/participants.json?api_key=${API_KEY}`,
       }),
