@@ -1,0 +1,6 @@
+export enum VIEW_TYPE {
+    LOGIN = 'LOGIN',
+    TOURNAMENTS = 'TOURNAMENTS',
+    MATCHES = 'MATCHES',
+    COUNTER = 'COUNTER'
+}
