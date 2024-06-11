@@ -1,15 +1,28 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { Tournament } from "../../../../types/tournaments";
 import TournamentView from "./children/TournamentView/TournamentView";
 import { Grid } from "@mui/material";
+import { useGetTournamentsQuery } from "../../../../services/tournaments";
+import { store } from "../../../../store";
+import { changeView } from "../../../../reducers/viewMenagerReducer";
+import { VIEW_TYPE } from "../../../../types/viewType";
 
-interface IProps {
-    tournaments: Tournament[];
+const TournamentsView: FunctionComponent = () => {
+    const { data, error, isLoading } = useGetTournamentsQuery();
+
+    useEffect( () => {
+        if(error){
+            store.dispatch(changeView({view: VIEW_TYPE.LOGIN}))
+        }
+    })
+
+    return (
+        <Grid className="min-w-full">
+            {isLoading && <p>Loading</p>}
+            {data && data.map((tournament, key) => <TournamentView tournament={tournament} key={key}/>)}
+            {error && <p>Error</p>}
+        </Grid>
+    )
 }
-
-const TournamentsView: FunctionComponent<IProps> = ({tournaments}) => 
-    <Grid className="min-w-full">
-        {tournaments.map((tournament, key) => <TournamentView tournament={tournament} key={key}/>)}
-    </Grid>
 
 export default TournamentsView;

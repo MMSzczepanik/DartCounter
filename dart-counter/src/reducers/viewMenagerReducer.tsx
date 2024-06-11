@@ -6,7 +6,7 @@ export interface ViewMenagerState {
 }
 
 const initialState: ViewMenagerState =  {
-    activeViewType: VIEW_TYPE.TOURNAMENTS
+    activeViewType: VIEW_TYPE.LOGIN
 }
 
 export const viewMenagerSlice = createSlice({

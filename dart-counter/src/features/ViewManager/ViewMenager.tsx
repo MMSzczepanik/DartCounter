@@ -3,18 +3,20 @@ import { useGetTournamentsQuery } from "../../services/tournaments";
 import TournamentsView from "./children/TournamentsView/TournamentsView";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import LoginView from "./children/LoginView/LoginView";
+import { VIEW_TYPE } from "../../types/viewType";
 
 const ViewMenager: FunctionComponent = () => {
 
-    const { data, error, isLoading } = useGetTournamentsQuery();
     const activeView = useSelector((state: RootState) => state.viewManager.activeViewType)
-    console.log(activeView);
 
     return (
         <>
-            {isLoading && <p>Loading</p>}
+            {activeView === VIEW_TYPE.LOGIN && <LoginView />}
+            {activeView === VIEW_TYPE.TOURNAMENTS && <TournamentsView />}
+            {/* {isLoading && <p>Loading</p>}
             {data && <TournamentsView tournaments={data} />}
-            {error && <p>Error</p>}
+            {error && <p>Error</p>} */}
         </>
     )
 }
