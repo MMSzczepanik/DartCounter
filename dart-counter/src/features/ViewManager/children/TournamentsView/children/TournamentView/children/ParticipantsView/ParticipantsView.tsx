@@ -20,7 +20,7 @@ const ParticipantsView: FunctionComponent<IProps> = ({torunamentId}) => {
     })
 
     return (
-        <Grid direction='column' className=" border-[2px]">
+        <Grid direction='column' className=" border-y-[2px] border-blue-700 ">
             {result.isLoading && <CircularProgress />}
             {result.data && result.data.map(participant => <ParticipantView parcitipant={participant}/>)}
         </Grid>

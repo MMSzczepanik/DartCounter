@@ -1,5 +1,4 @@
 import { FunctionComponent, useEffect } from "react";
-import { Tournament } from "../../../../types/tournaments";
 import TournamentView from "./children/TournamentView/TournamentView";
 import { CircularProgress, Grid } from "@mui/material";
 import { useGetTournamentsQuery } from "../../../../services/tournaments";

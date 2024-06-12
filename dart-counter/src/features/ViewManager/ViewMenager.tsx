@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import { useGetTournamentsQuery } from "../../services/tournaments";
 import TournamentsView from "./children/TournamentsView/TournamentsView";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";

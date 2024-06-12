@@ -12,7 +12,7 @@ interface LoginForm {
 }
 
 const LoginView: FunctionComponent = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<LoginForm>();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
     const onSubmit = (data: LoginForm) => {
     store.dispatch(setCridentials(data))
     store.dispatch(changeView({view: VIEW_TYPE.TOURNAMENTS}))
