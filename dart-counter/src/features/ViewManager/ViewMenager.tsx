@@ -14,9 +14,6 @@ const ViewMenager: FunctionComponent = () => {
         <>
             {activeView === VIEW_TYPE.LOGIN && <LoginView />}
             {activeView === VIEW_TYPE.TOURNAMENTS && <TournamentsView />}
-            {/* {isLoading && <p>Loading</p>}
-            {data && <TournamentsView tournaments={data} />}
-            {error && <p>Error</p>} */}
         </>
     )
 }
