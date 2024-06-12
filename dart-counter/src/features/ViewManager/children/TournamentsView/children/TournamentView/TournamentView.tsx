@@ -6,6 +6,8 @@ import classNames from "classnames";
 import { useLazyGetMatchesByTournamentQuery } from "../../../../../../services/tournaments";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../store";
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 interface IProps {
     tournament: Tournament;
@@ -31,7 +33,7 @@ const TournamentView: FunctionComponent<IProps> = ({
             isOpenDetails && <ParticipantsView torunamentId={tournament.tournament.id}/>
         }
         <Grid className="p-4" onClick={() => setOpenDetails(!isOpenDetails)}>
-            {isOpenDetails? <p>-</p> : <p>+</p>}
+            {isOpenDetails? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>}
         </Grid>
     </Grid>)
 }
