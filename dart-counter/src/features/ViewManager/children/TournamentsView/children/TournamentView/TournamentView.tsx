@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { TOURNAMENT_STATE, Tournament } from "../../../../../../types/tournaments";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import ParticipantsView from "./children/ParticipantsView/ParticipantsView";
 import classNames from "classnames";
 import { useLazyGetMatchesByTournamentQuery } from "../../../../../../services/tournaments";
@@ -26,8 +26,9 @@ const TournamentView: FunctionComponent<IProps> = ({
         <Grid onClick={() => trigger({
             tournamentId: tournament.tournament.id,
             api_key
-            })}>
-            {tournament.tournament.name}
+            })} className="mb-2">
+
+            <Typography variant="h4">{tournament.tournament.name}</Typography>
         </Grid>
         {
             isOpenDetails && <ParticipantsView torunamentId={tournament.tournament.id}/>

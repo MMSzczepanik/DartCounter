@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from "react";
 import { useLazyGetParticipantsByTournamentIdQuery } from "../../../../../../../../services/tournaments";
-import { Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
 import ParticipantView from "./children/ParticipantView/ParticipantView";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../store";
@@ -21,7 +21,7 @@ const ParticipantsView: FunctionComponent<IProps> = ({torunamentId}) => {
 
     return (
         <Grid direction='column' className=" border-[2px]">
-            {result.isLoading && <p>Loading</p>}
+            {result.isLoading && <CircularProgress />}
             {result.data && result.data.map(participant => <ParticipantView parcitipant={participant}/>)}
         </Grid>
     )

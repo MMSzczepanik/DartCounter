@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Participant } from "../../../../../../../../../../types/participant";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 interface IProps {
     parcitipant: Participant
@@ -8,7 +8,7 @@ interface IProps {
 
 const ParticipantView: FunctionComponent<IProps> = ({parcitipant}) => 
     <Grid>
-        {parcitipant.participant.name}
+        <Typography variant="h6">{parcitipant.participant.name}</Typography>
     </Grid>
 
 export default ParticipantView;
