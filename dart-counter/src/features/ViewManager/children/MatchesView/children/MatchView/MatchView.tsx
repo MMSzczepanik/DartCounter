@@ -1,18 +1,18 @@
 import { FunctionComponent } from "react";
-import { MatchVO } from "../../../../../../types/matches";
+import { Match } from "../../../../../../types/matches";
 import { Grid, Typography } from "@mui/material";
 import {store } from "../../../../../../store";
 import { setMatchId } from "../../../../../../reducers/customerJourneyReducer";
 import { changeView } from "../../../../../../reducers/viewMenagerReducer";
 import { VIEW_TYPE } from "../../../../../../types/viewType";
-import { Participant } from "../../../../../../types/participant";
+import { ParticipantDTO } from "../../../../../../types/dto/participant";
 import { setPlayers } from "../../../../../../reducers/counterReducer";
 
 interface IProps {
-    match: MatchVO;
+    match: Match;
 }
 
-const chooseMatch = (match: MatchVO, participants: Participant[]) => () => {
+const chooseMatch = (match: Match, participants: ParticipantDTO[]) => () => {
     store.dispatch(setMatchId(match.match.id))
     store.dispatch(setPlayers(participants));
     store.dispatch(changeView({view: VIEW_TYPE.COUNTER}))
@@ -21,7 +21,7 @@ const chooseMatch = (match: MatchVO, participants: Participant[]) => () => {
 
 const MatchView: FunctionComponent<IProps> = ({match}) => {
 
-    const participants: Participant[] = [{
+    const participants: ParticipantDTO[] = [{
         participant: {
             id: match.match.player1_id,
             name: match.match.player1_name

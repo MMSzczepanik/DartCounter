@@ -1,9 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Tournament } from '../types/tournaments';
-import { Participant } from '../types/participant';
-import { MATCH_STATE, Match } from '../types/matches';
+import { TournamentDTO } from '../types/dto/tournaments';
+import { ParticipantDTO } from '../types/dto/participant';
 import { RootState } from '../store';
 import { ApiKey } from '../types/apiKey';
+import { MATCH_STATE, MatchDTO } from '../types/dto/matches';
 
 export const tournamentsApi = createApi({
     reducerPath: 'tournamentsApi',
@@ -14,17 +14,17 @@ export const tournamentsApi = createApi({
             headers.set('Password', (getState() as RootState).cridentials.password);
         } }),
     endpoints: (builder) => ({
-      getTournaments: builder.query<Tournament[], ApiKey>({
+      getTournaments: builder.query<TournamentDTO[], ApiKey>({
         query: ({api_key}) => `tournaments.json?api_key=${api_key}`,
-        transformResponse: (response: Tournament[]) => 
+        transformResponse: (response: TournamentDTO[]) => 
            response.filter(tournament => tournament.tournament.started_at)
           }),
-      getParticipantsByTournamentId: builder.query<Participant[], {tournamentId: number} & ApiKey>({
+      getParticipantsByTournamentId: builder.query<ParticipantDTO[], {tournamentId: number} & ApiKey>({
         query: ({tournamentId, api_key}) => `tournaments/${tournamentId}/participants.json?api_key=${api_key}`,
       }),
-      getMatchesByTournament: builder.query<Match[], {tournamentId: number} & ApiKey>({
+      getMatchesByTournament: builder.query<MatchDTO[], {tournamentId: number} & ApiKey>({
         query: ({tournamentId, api_key}) => `tournaments/${tournamentId}/matches.json?api_key=${api_key}`,
-        transformResponse: (response: Match[]) => response.filter(
+        transformResponse: (response: MatchDTO[]) => response.filter(
           match => 
               match.match.player1_id &&
               match.match.player2_id &&

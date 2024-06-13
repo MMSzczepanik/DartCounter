@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Game } from "../types/game";
-import { Participant } from "../types/participant";
+import { ParticipantDTO } from "../types/dto/participant";
 
 export interface CounterState {
     game: Game
@@ -80,7 +80,7 @@ export const counterSlice = createSlice({
                 }
             })
       },
-      setPlayers: (state: CounterState, action: PayloadAction<Participant[]>) => ({
+      setPlayers: (state: CounterState, action: PayloadAction<ParticipantDTO[]>) => ({
         game: {
             ...state.game,
             players: action.payload.map(paricipant => ({

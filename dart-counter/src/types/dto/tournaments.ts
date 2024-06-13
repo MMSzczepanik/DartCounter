@@ -1,4 +1,4 @@
-export interface Tournament {
+export interface TournamentDTO {
     tournament: {
         name: string;
         state: TOURNAMENT_STATE;

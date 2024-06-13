@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import { TOURNAMENT_STATE, Tournament } from "../../../../../../types/tournaments";
+import { TOURNAMENT_STATE, TournamentDTO } from "../../../../../../types/dto/tournaments";
 import { Grid, Typography } from "@mui/material";
 import ParticipantsView from "./children/ParticipantsView/ParticipantsView";
 import classNames from "classnames";
@@ -11,10 +11,10 @@ import { VIEW_TYPE } from "../../../../../../types/viewType";
 import { setTournamentId } from "../../../../../../reducers/customerJourneyReducer";
 
 interface IProps {
-    tournament: Tournament;
+    tournament: TournamentDTO;
 }
 
-const chooseTournament = (torunament: Tournament) => {
+const chooseTournament = (torunament: TournamentDTO) => {
     store.dispatch(setTournamentId(torunament.tournament.id))
     store.dispatch(changeView({view: VIEW_TYPE.MATCHES}))
 }

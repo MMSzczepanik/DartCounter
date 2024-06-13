@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
-import { Participant } from "../../../../../../../../../../types/participant";
+import { ParticipantDTO } from "../../../../../../../../../../types/dto/participant";
 import { Grid, Typography } from "@mui/material";
 
 interface IProps {
-    parcitipant: Participant
+    parcitipant: ParticipantDTO
 }
 
 const ParticipantView: FunctionComponent<IProps> = ({parcitipant}) => 
