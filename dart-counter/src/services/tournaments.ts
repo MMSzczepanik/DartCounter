@@ -29,4 +29,4 @@ export const tournamentsApi = createApi({
     }),
   })
 
-  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery, useLazyGetMatchesByTournamentQuery } = tournamentsApi
+  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery, useGetMatchesByTournamentQuery, useGetParticipantsByTournamentIdQuery } = tournamentsApi

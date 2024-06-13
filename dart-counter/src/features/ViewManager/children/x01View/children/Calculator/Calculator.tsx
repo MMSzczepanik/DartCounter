@@ -1,7 +1,7 @@
 import { FunctionComponent, useState } from "react";
 import DigitButton from "../DigitButton/DigitButton";
 import { useDispatch } from "react-redux";
-import { confirmScore } from "../../../../reducers/counterReducer";
+import { confirmScore } from "../../../../../../reducers/counterReducer";
 import { Grid } from "@mui/material";
 
 const Calculator: FunctionComponent = () => {

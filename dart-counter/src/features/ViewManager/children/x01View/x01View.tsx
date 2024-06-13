@@ -1,9 +1,9 @@
 import { Children, FunctionComponent } from "react";
 import Calculator from "./children/Calculator/Calculator";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "../../../../store";
 import ScoreView from "./children/ScoreView/ScoreView";
-import { Player } from "../../types/player";
+import { Player } from "../../../../types/player";
 import { Grid } from "@mui/material";
 
 const X01View: FunctionComponent = () => {

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import LoginView from "./children/LoginView/LoginView";
 import { VIEW_TYPE } from "../../types/viewType";
+import MatchesView from "./children/MatchesView/MatchesView";
 
 const ViewMenager: FunctionComponent = () => {
 
@@ -13,6 +14,7 @@ const ViewMenager: FunctionComponent = () => {
         <>
             {activeView === VIEW_TYPE.LOGIN && <LoginView />}
             {activeView === VIEW_TYPE.TOURNAMENTS && <TournamentsView />}
+            {activeView === VIEW_TYPE.MATCHES && <MatchesView />}
         </>
     )
 }
