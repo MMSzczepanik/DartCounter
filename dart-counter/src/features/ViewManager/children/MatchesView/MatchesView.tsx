@@ -5,6 +5,7 @@ import { RootState } from "../../../../store";
 import { CircularProgress, Grid } from "@mui/material";
 import classNames from "classnames";
 import { mapMatch } from "../../../../mappers/matchMapper";
+import MatchView from "./children/MatchView/MatchView";
 
 const MatchesView: FunctionComponent = () => {
 
@@ -30,7 +31,7 @@ const MatchesView: FunctionComponent = () => {
             {"h-screen flex items-center justify-center": isLoading}
         )}>
             {isLoading && <CircularProgress />}
-            {data && mappedMatch && mappedMatch.map(match => <p>{match.match.player1_name} - {match.match.player2_name}</p>)}
+            {data && mappedMatch && mappedMatch.map(match => <MatchView match={match} />)}
         </Grid>
     )
 }
