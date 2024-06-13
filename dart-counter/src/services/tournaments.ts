@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Tournament } from '../types/tournaments';
 import { Participant } from '../types/participant';
-import { Match } from '../types/matches';
+import { MATCH_STATE, Match } from '../types/matches';
 import { RootState } from '../store';
 import { ApiKey } from '../types/apiKey';
 
@@ -24,7 +24,11 @@ export const tournamentsApi = createApi({
       }),
       getMatchesByTournament: builder.query<Match[], {tournamentId: number} & ApiKey>({
         query: ({tournamentId, api_key}) => `tournaments/${tournamentId}/matches.json?api_key=${api_key}`,
-        transformResponse: (response: Match[]) => response.filter(match => match.match.player1_id && match.match.player2_id)
+        transformResponse: (response: Match[]) => response.filter(
+          match => 
+              match.match.player1_id &&
+              match.match.player2_id &&
+              match.match.state !== MATCH_STATE.COMPLETE)
       }),
     }),
   })
