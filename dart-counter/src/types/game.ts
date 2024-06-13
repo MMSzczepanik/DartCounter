@@ -1,7 +1,6 @@
 import { Player } from "./player";
 
 export interface Game {
-    id: number;
     actualPlayer: number;
     startedPlayerId: number;
     format: number;

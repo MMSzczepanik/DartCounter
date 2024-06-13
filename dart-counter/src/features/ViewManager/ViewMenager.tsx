@@ -5,6 +5,7 @@ import { RootState } from "../../store";
 import LoginView from "./children/LoginView/LoginView";
 import { VIEW_TYPE } from "../../types/viewType";
 import MatchesView from "./children/MatchesView/MatchesView";
+import X01View from "./children/x01View/x01View";
 
 const ViewMenager: FunctionComponent = () => {
 
@@ -15,6 +16,7 @@ const ViewMenager: FunctionComponent = () => {
             {activeView === VIEW_TYPE.LOGIN && <LoginView />}
             {activeView === VIEW_TYPE.TOURNAMENTS && <TournamentsView />}
             {activeView === VIEW_TYPE.MATCHES && <MatchesView />}
+            {activeView === VIEW_TYPE.COUNTER && <X01View />}
         </>
     )
 }

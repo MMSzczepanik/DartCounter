@@ -9,7 +9,6 @@ const Calculator: FunctionComponent = () => {
 const dispatch = useDispatch();
 
 const [score, setScore] = useState('');
-const [openModal, setOpenModal] = useState(false);
 
 return <Grid container direction='column' alignItems='stretch' justifyContent='center'>
     <Grid >

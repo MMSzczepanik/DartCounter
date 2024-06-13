@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Game } from "../types/game";
+import { Participant } from "../types/participant";
 
 export interface CounterState {
     game: Game
@@ -12,7 +13,6 @@ const initialLegState = {
 
 const initialState: CounterState = {
     game: {
-        id: 0,
         actualPlayer: 0,
         actualLeg: 0,
         format: 5,
@@ -21,11 +21,13 @@ const initialState: CounterState = {
         players: [
             {
                 name: 'Player 1',
+                id: 0,
                 wonLegs: 0,
                 legs: [{...initialLegState}]
             },
             {
                 name: 'Player 2',
+                id: 0,
                 wonLegs: 0,
                 legs: [{
                     ...initialLegState
@@ -78,6 +80,16 @@ export const counterSlice = createSlice({
                 }
             })
       },
+      setPlayers: (state: CounterState, action: PayloadAction<Participant[]>) => ({
+        game: {
+            ...state.game,
+            players: action.payload.map(paricipant => ({
+                ...paricipant.participant,
+                legs: [{...initialLegState}],
+                wonLegs: 0
+            }))
+        }
+      })
     },
   })
 
@@ -87,6 +99,6 @@ const getUpdatedScores = (state: CounterState, score: number) => {
     return [...actualscores, score].reduce((partialSum, a) => partialSum + a, 0);
     }
 
-export const {confirmScore} = counterSlice.actions
+export const {confirmScore, setPlayers} = counterSlice.actions
 export default counterSlice.reducer;
 
