@@ -9,6 +9,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { changeView } from "../../../../../../reducers/viewMenagerReducer";
 import { VIEW_TYPE } from "../../../../../../types/viewType";
 import { setTournamentId } from "../../../../../../reducers/customerJourneyReducer";
+import TournamentHeader from "./children/TournamentHeader/TournamentHeader";
 
 interface IProps {
     tournament: TournamentDTO;
@@ -28,7 +29,7 @@ const TournamentView: FunctionComponent<IProps> = ({
         tournament.tournament.state === TOURNAMENT_STATE.UNDERWAY ? 'border-blue-700 bg-blue-300' : 'border-red-700 bg-red-300'
     )} >
         <Grid onClick={() => chooseTournament(tournament)} className="mb-2">
-            <Typography variant="h4">{tournament.tournament.name}</Typography>
+            <TournamentHeader tournament={tournament}/>
         </Grid>
         {
             isOpenDetails && <ParticipantsView torunamentId={tournament.tournament.id}/>
