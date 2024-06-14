@@ -4,6 +4,8 @@ export interface MatchDTO {
         player1_id: number;
         player2_id: number;
         state: MATCH_STATE;
+        scores_csv: string;
+        winner_id: number;
     }
 }
 

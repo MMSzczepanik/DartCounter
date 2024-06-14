@@ -3,7 +3,7 @@ import { TournamentDTO } from '../types/dto/tournaments';
 import { ParticipantDTO } from '../types/dto/participant';
 import { RootState } from '../store';
 import { ApiKey } from '../types/apiKey';
-import { MATCH_STATE, MatchDTO } from '../types/dto/matches';
+import { MatchDTO } from '../types/dto/matches';
 
 export const tournamentsApi = createApi({
     reducerPath: 'tournamentsApi',
@@ -27,8 +27,7 @@ export const tournamentsApi = createApi({
         transformResponse: (response: MatchDTO[]) => response.filter(
           match => 
               match.match.player1_id &&
-              match.match.player2_id &&
-              match.match.state !== MATCH_STATE.COMPLETE)
+              match.match.player2_id)
       }),
     }),
   })

@@ -31,7 +31,7 @@ const MatchesView: FunctionComponent = () => {
             {"h-screen flex items-center justify-center": isLoading}
         )}>
             {isLoading && <CircularProgress />}
-            {data && mappedMatch && mappedMatch.map(match => <MatchView match={match} />)}
+            {data && mappedMatch && mappedMatch.map((match, key) => <MatchView match={match} key={key} />)}
         </Grid>
     )
 }
