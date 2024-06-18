@@ -1,12 +1,14 @@
 export interface MatchDTO {
-    match: {
-        id: number;
-        player1_id: number;
-        player2_id: number;
-        state: MATCH_STATE;
-        scores_csv: string;
-        winner_id: number;
-    }
+    match: MatchDetailsDTO;
+}
+
+export interface MatchDetailsDTO {
+    id: number;
+    player1_id: number;
+    player2_id: number;
+    state: MATCH_STATE;
+    scores_csv: string;
+    winner_id: number;
 }
 
 export enum MATCH_STATE {

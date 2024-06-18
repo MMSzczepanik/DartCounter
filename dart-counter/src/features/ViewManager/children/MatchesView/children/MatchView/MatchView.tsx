@@ -3,8 +3,7 @@ import { Match } from "../../../../../../types/matches";
 import { Grid, Typography } from "@mui/material";
 import {store } from "../../../../../../store";
 import { setMatchId } from "../../../../../../reducers/customerJourneyReducer";
-import { changeView } from "../../../../../../reducers/viewMenagerReducer";
-import { VIEW_TYPE } from "../../../../../../types/viewType";
+import { goNext } from "../../../../../../reducers/viewMenagerReducer";
 import { ParticipantDTO } from "../../../../../../types/dto/participant";
 import { setPlayers } from "../../../../../../reducers/counterReducer";
 import { MATCH_STATE } from "../../../../../../types/dto/matches";
@@ -18,7 +17,7 @@ const chooseMatch = (match: Match, participants: ParticipantDTO[]) => () => {
     if(match.match.state !== MATCH_STATE.COMPLETE){
         store.dispatch(setMatchId(match.match.id))
         store.dispatch(setPlayers(participants));
-        store.dispatch(changeView({view: VIEW_TYPE.COUNTER}))
+        store.dispatch(goNext())
     }
 }
 
@@ -26,7 +25,7 @@ const chooseMatch = (match: Match, participants: ParticipantDTO[]) => () => {
 const MatchView: FunctionComponent<IProps> = ({match}) => {
 
     const isMatchCompleted = match.match.state === MATCH_STATE.COMPLETE
-    const formattedScore = match.match.scores_csv.split('-').join(':')
+    const formattedScore = match.match.scores_csv.replaceAll('-',':')
 
     const participants: ParticipantDTO[] = [{
         participant: {

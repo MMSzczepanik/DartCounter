@@ -3,8 +3,7 @@ import { FunctionComponent } from "react";
 import { useForm } from "react-hook-form";
 import { setCridentials } from "../../../../reducers/cridentialsReducer";
 import { store } from "../../../../store";
-import { changeView } from "../../../../reducers/viewMenagerReducer";
-import { VIEW_TYPE } from "../../../../types/viewType";
+import { goNext } from "../../../../reducers/viewMenagerReducer";
 
 interface LoginForm {
     username: string,
@@ -15,7 +14,7 @@ const LoginView: FunctionComponent = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
     const onSubmit = (data: LoginForm) => {
     store.dispatch(setCridentials(data))
-    store.dispatch(changeView({view: VIEW_TYPE.TOURNAMENTS}))
+    store.dispatch(goNext())
     }
     
     return (

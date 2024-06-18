@@ -28,7 +28,7 @@ const MatchesView: FunctionComponent = () => {
     return (
         <Grid className={classNames(
             "min-w-full", 
-            {"h-screen flex items-center justify-center": isLoading}
+            {"h-screen flex items-center justify-center shadow-md": isLoading}
         )}>
             {isLoading && <CircularProgress />}
             {data && mappedMatch && mappedMatch.map((match, key) => <MatchView match={match} key={key} />)}

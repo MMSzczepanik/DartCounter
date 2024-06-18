@@ -3,8 +3,7 @@ import TournamentView from "./children/TournamentView/TournamentView";
 import { CircularProgress, Grid } from "@mui/material";
 import { useGetTournamentsQuery } from "../../../../services/tournaments";
 import { RootState, store } from "../../../../store";
-import { changeView } from "../../../../reducers/viewMenagerReducer";
-import { VIEW_TYPE } from "../../../../types/viewType";
+import { goBack } from "../../../../reducers/viewMenagerReducer";
 import { useSelector } from "react-redux";
 import classNames from "classnames";
 
@@ -14,7 +13,7 @@ const TournamentsView: FunctionComponent = () => {
 
     useEffect( () => {
         if(error){
-            store.dispatch(changeView({view: VIEW_TYPE.LOGIN}))
+            store.dispatch(goBack())
         }
     })
 
