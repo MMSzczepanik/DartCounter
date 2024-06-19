@@ -10,8 +10,8 @@ const X01View: FunctionComponent = () => {
     const {players, actualPlayer, actualLeg} = useSelector((state: RootState) => state.counter.game)
 
     return (
-        <Grid container direction={'row'} justifyContent='center' spacing={3}>
-            <Grid container direction='row' xs={8}>
+        <Grid container direction={'row'} justifyContent='center'>
+            <Grid container direction='row' xs={9}>
                 {Children.toArray(
                             players.map((player, key) => (
                                     <ScoreView actualPlayerId={actualPlayer} actualScore={getActualScoreForPlayer(player, actualLeg)} player={player} index={key}/>
@@ -19,7 +19,7 @@ const X01View: FunctionComponent = () => {
                         )
                 }
             </Grid>
-            <Grid xs={4}>
+            <Grid xs={3}>
                 <Calculator />
             </Grid>
     </Grid>

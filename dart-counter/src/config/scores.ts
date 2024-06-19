@@ -1,0 +1,1 @@
+export const AVAILABLE_SCORE = [...Array.from({length:163}, (value, index) => index), 164, 167, 168, 170, 171, 174, 177, 180];

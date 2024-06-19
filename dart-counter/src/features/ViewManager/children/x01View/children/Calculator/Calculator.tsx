@@ -2,7 +2,9 @@ import { FunctionComponent, useState } from "react";
 import DigitButton from "../DigitButton/DigitButton";
 import { useDispatch } from "react-redux";
 import { confirmScore } from "../../../../../../reducers/counterReducer";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { AVAILABLE_SCORE } from "../../../../../../config/scores";
+import classNames from "classnames";
 
 const Calculator: FunctionComponent = () => {
 
@@ -10,9 +12,14 @@ const dispatch = useDispatch();
 
 const [score, setScore] = useState('');
 
+const isAvailableScore = () => AVAILABLE_SCORE.includes(Number.parseInt(score)) || score === '';
+
 return <Grid container direction='column' alignItems='stretch' justifyContent='center'>
     <Grid >
-        <p className="border-solid border-blue-200 border-[4px] px-4 py-4">{score}</p>
+        <Typography variant='h4' className={classNames("border-solid h-20  border-[4px] px-4 py-4",
+            {"border-blue-700" : isAvailableScore()},
+            {"border-red-700 bg-red-200" : !isAvailableScore()}
+        )}>{score}</Typography>
     </Grid>
     <Grid container direction='row'>
             <DigitButton sign={1}
@@ -57,6 +64,7 @@ return <Grid container direction='column' alignItems='stretch' justifyContent='c
             />
 
             <DigitButton sign={'+'} 
+                disabled={!isAvailableScore()}
                 onClick={() => {
                     dispatch(confirmScore({
                     score: Number(score)

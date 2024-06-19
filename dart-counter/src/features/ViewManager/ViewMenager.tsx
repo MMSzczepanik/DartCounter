@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import TournamentsView from "./children/TournamentsView/TournamentsView";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import LoginView from "./children/LoginView/LoginView";
@@ -9,6 +8,7 @@ import X01View from "./children/x01View/x01View";
 import TopHeader from "../TopHeader/TopHeader";
 import { Grid } from "@mui/material";
 import { getStepConfig } from "../../config/steps";
+import TournamentsView from "./children/TournamentsView/TournamentsView";
 
 const ViewMenager: FunctionComponent = () => {
 

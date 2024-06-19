@@ -1,13 +1,15 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Game } from "../types/game";
 import { ParticipantDTO } from "../types/dto/participant";
+import { Leg } from "../types/leg";
 
 export interface CounterState {
     game: Game
 }
 
-const initialLegState = {
+const initialLegState: Leg = {
     actualScore: 501,
+    darts: 0,
     scores: []
 }
 
@@ -57,7 +59,9 @@ export const counterSlice = createSlice({
                         wonLegs:  player.wonLegs + 1,
                         legs: [...player.legs.map((leg, legIndex) => ({
                             actualScore: legIndex === state.game.actualLeg ? leg.actualScore - action.payload.score : leg.actualScore,
-                            scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores
+                            scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores,
+                            //TODO: Adjust it !!!!!
+                            darts: leg.darts+3
                         })), initialLegState]
                     }) : {
                         ...player,
@@ -65,7 +69,7 @@ export const counterSlice = createSlice({
                     })
                 }
             })
-        }
+        }else{
             return ({
                 game: {
                     ...state.game,
@@ -74,11 +78,13 @@ export const counterSlice = createSlice({
                         ...player,
                         legs: player.legs.map((leg, legIndex) => ({
                             actualScore: legIndex === state.game.actualLeg ? leg.actualScore - action.payload.score : leg.actualScore,
-                            scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores
+                            scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores,
+                            darts: leg.darts+3
                         }))
                     }) : player)
                 }
             })
+        }
       },
       setPlayers: (state: CounterState, action: PayloadAction<ParticipantDTO[]>) => ({
         game: {
@@ -89,7 +95,7 @@ export const counterSlice = createSlice({
                 wonLegs: 0
             }))
         }
-      })
+      }),
     },
   })
 

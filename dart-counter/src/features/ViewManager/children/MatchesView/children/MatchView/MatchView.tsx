@@ -44,7 +44,7 @@ const MatchView: FunctionComponent<IProps> = ({match}) => {
         <Grid item xs={5}>
             <Typography variant="h5" >{match.match.player1_name}</Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1}>
             <Typography variant="h5">{isMatchCompleted ? formattedScore : 'VS'}</Typography>
         </Grid>
         <Grid item xs={5}>
