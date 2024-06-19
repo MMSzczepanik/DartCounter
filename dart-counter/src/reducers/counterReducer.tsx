@@ -61,7 +61,7 @@ export const counterSlice = createSlice({
                             actualScore: legIndex === state.game.actualLeg ? leg.actualScore - action.payload.score : leg.actualScore,
                             scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores,
                             //TODO: Adjust it !!!!!
-                            darts: leg.darts+3
+                            darts: legIndex === state.game.actualLeg ? leg.darts+3 : leg.darts
                         })), initialLegState]
                     }) : {
                         ...player,
@@ -79,7 +79,7 @@ export const counterSlice = createSlice({
                         legs: player.legs.map((leg, legIndex) => ({
                             actualScore: legIndex === state.game.actualLeg ? leg.actualScore - action.payload.score : leg.actualScore,
                             scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores,
-                            darts: leg.darts+3
+                            darts: legIndex === state.game.actualLeg ? leg.darts+3 : leg.darts
                         }))
                     }) : player)
                 }
