@@ -45,32 +45,7 @@ export const counterSlice = createSlice({
     reducers: {
       confirmScore: (state: CounterState, action: PayloadAction<{
         score: number
-      }>) => {
-        const isEndedLeg = (getUpdatedScores(state, action.payload.score) - state.game.score) === 0
-        if(isEndedLeg){
-            return ({
-                game: {
-                    ...state.game,
-                    actualPlayer: state.game.startedPlayerId === 0 ? 1 : 0,
-                    startedPlayerId: state.game.startedPlayerId === 0 ? 1 : 0,
-                    actualLeg: state.game.actualLeg + 1,
-                    players: state.game.players.map((player, playerIndex) => playerIndex === state.game.actualPlayer ? ({
-                        ...player,
-                        wonLegs:  player.wonLegs + 1,
-                        legs: [...player.legs.map((leg, legIndex) => ({
-                            actualScore: legIndex === state.game.actualLeg ? leg.actualScore - action.payload.score : leg.actualScore,
-                            scores: legIndex === state.game.actualLeg ? [...leg.scores, action.payload.score] : leg.scores,
-                            //TODO: Adjust it !!!!!
-                            darts: legIndex === state.game.actualLeg ? leg.darts+3 : leg.darts
-                        })), initialLegState]
-                    }) : {
-                        ...player,
-                        legs: [...player.legs, initialLegState]
-                    })
-                }
-            })
-        }else{
-            return ({
+      }>) => ({
                 game: {
                     ...state.game,
                 actualPlayer: state.game.actualPlayer === 0 ? 1 : 0,
@@ -83,9 +58,29 @@ export const counterSlice = createSlice({
                         }))
                     }) : player)
                 }
+            }),
+      endLeg: (state: CounterState, action: PayloadAction<{
+        dart: number
+      }>) => ({
+        game: {
+            ...state.game,
+            actualPlayer: state.game.startedPlayerId === 0 ? 1 : 0,
+            startedPlayerId: state.game.startedPlayerId === 0 ? 1 : 0,
+            actualLeg: state.game.actualLeg + 1,
+            players: state.game.players.map((player, playerIndex) => playerIndex === state.game.actualPlayer ? ({
+                ...player,
+                wonLegs:  player.wonLegs + 1,
+                legs: [...player.legs.map((leg, legIndex) => ({
+                    actualScore: legIndex === state.game.actualLeg ? 0 : leg.actualScore,
+                    scores: legIndex === state.game.actualLeg ? [...leg.scores, leg.actualScore] : leg.scores,
+                    darts: legIndex === state.game.actualLeg ? leg.darts + action.payload.dart : leg.darts
+                })), initialLegState]
+            }) : {
+                ...player,
+                legs: [...player.legs, initialLegState]
             })
         }
-      },
+    }),
       setPlayers: (state: CounterState, action: PayloadAction<ParticipantDTO[]>) => ({
         game: {
             ...state.game,
@@ -99,12 +94,6 @@ export const counterSlice = createSlice({
     },
   })
 
-const getUpdatedScores = (state: CounterState, score: number) => {
-    const actualscores = state.game.players[state.game.actualPlayer]
-        .legs[state.game.actualLeg].scores;
-    return [...actualscores, score].reduce((partialSum, a) => partialSum + a, 0);
-    }
-
-export const {confirmScore, setPlayers} = counterSlice.actions
+export const {confirmScore, setPlayers, endLeg} = counterSlice.actions
 export default counterSlice.reducer;
 

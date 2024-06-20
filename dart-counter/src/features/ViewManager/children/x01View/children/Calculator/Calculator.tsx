@@ -1,20 +1,29 @@
 import { FunctionComponent, useState } from "react";
 import DigitButton from "../DigitButton/DigitButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { confirmScore } from "../../../../../../reducers/counterReducer";
 import { Grid, Typography } from "@mui/material";
 import { AVAILABLE_SCORE } from "../../../../../../config/scores";
 import classNames from "classnames";
+import { RootState } from "../../../../../../store";
+import CheckoutModal from "../CheckoutModal/CheckoutModal";
 
 const Calculator: FunctionComponent = () => {
 
 const dispatch = useDispatch();
 
 const [score, setScore] = useState('');
+const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
-const isAvailableScore = () => AVAILABLE_SCORE.includes(Number.parseInt(score)) || score === '';
+const game = useSelector((state: RootState) => state.counter.game);
+
+const isFinishGame = game.players[game.actualPlayer].legs[game.actualLeg].actualScore === Number.parseInt(score)
+
+const isAvailableScore = () => (AVAILABLE_SCORE.includes(Number.parseInt(score)) &&
+     game.players[game.actualPlayer].legs[game.actualLeg].actualScore >= Number.parseInt(score)) || score === '';
 
 return <Grid container direction='column' alignItems='stretch' justifyContent='center'>
+    <CheckoutModal open={isModalOpen} handleClose={setModalOpen}/>
     <Grid >
         <Typography variant='h4' className={classNames("border-solid h-20  border-[4px] px-4 py-4",
             {"border-blue-700" : isAvailableScore()},
@@ -66,10 +75,11 @@ return <Grid container direction='column' alignItems='stretch' justifyContent='c
             <DigitButton sign={'+'} 
                 disabled={!isAvailableScore()}
                 onClick={() => {
-                    dispatch(confirmScore({
+                    !isFinishGame && dispatch(confirmScore({
                     score: Number(score)
                 }))
                 setScore('')
+                isFinishGame && setModalOpen(true);
             }}
             />
     </Grid>
