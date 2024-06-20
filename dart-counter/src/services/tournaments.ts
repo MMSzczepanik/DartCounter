@@ -29,7 +29,12 @@ export const tournamentsApi = createApi({
               match.match.player1_id &&
               match.match.player2_id)
       }),
+      postMatchUnderway: builder.query<ParticipantDTO[], {tournamentId: number, matchId: number} & ApiKey>({
+        query: ({tournamentId, matchId, api_key}) => ({
+            url: `tournaments/${tournamentId}/matches/${matchId}/mark_as_underway.json?api_key=${api_key}`,
+            method: 'POST'
+      })}),
     }),
   })
 
-  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery, useGetMatchesByTournamentQuery, useGetParticipantsByTournamentIdQuery } = tournamentsApi
+  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery, useGetMatchesByTournamentQuery, useGetParticipantsByTournamentIdQuery, usePostMatchUnderwayQuery } = tournamentsApi
