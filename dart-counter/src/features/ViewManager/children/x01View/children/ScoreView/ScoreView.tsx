@@ -46,7 +46,7 @@ const ScoreView: FunctionComponent<Props> = ({
         {
             'border-solid  bg-blue-500' : isActualPlayer
         }, 'text-4xl px-5 py-5')}>
-            {actualScore}
+            <Typography variant="h1">{actualScore}</Typography>
         </Grid>
         <Grid item  xs={1} className={classNames(
         'content-center text-center border-[2px] border-blue-700',
