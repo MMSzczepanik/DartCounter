@@ -3,7 +3,7 @@ import { TournamentDTO } from '../types/dto/tournaments';
 import { ParticipantDTO } from '../types/dto/participant';
 import { RootState } from '../store';
 import { ApiKey } from '../types/apiKey';
-import { MatchDTO } from '../types/dto/matches';
+import { MatchDTO, MatchPayloadDTO } from '../types/dto/matches';
 
 export const tournamentsApi = createApi({
     reducerPath: 'tournamentsApi',
@@ -34,7 +34,14 @@ export const tournamentsApi = createApi({
             url: `tournaments/${tournamentId}/matches/${matchId}/mark_as_underway.json?api_key=${api_key}`,
             method: 'POST'
       })}),
+      putMatchScores: builder.query<void, MatchPayloadDTO & {tournamentId: number, matchId: number} & ApiKey>({
+        query: ({tournamentId, matchId, api_key, match}) => ({
+            url: `tournaments/${tournamentId}/matches/${matchId}.json?api_key=${api_key}`,
+            method: 'PUT',
+            body: {match}
+        })
+      })
     }),
   })
 
-  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery, useGetMatchesByTournamentQuery, useGetParticipantsByTournamentIdQuery, usePostMatchUnderwayQuery } = tournamentsApi
+  export const {useGetTournamentsQuery, useLazyGetParticipantsByTournamentIdQuery, useGetMatchesByTournamentQuery, useGetParticipantsByTournamentIdQuery, usePostMatchUnderwayQuery, useLazyPutMatchScoresQuery } = tournamentsApi

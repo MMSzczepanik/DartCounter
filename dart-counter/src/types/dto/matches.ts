@@ -11,6 +11,17 @@ export interface MatchDetailsDTO {
     winner_id: number;
 }
 
+export interface MatchPayloadDTO {
+    match: MatchDetailsPayloadDTO
+}
+
+export interface MatchDetailsPayloadDTO {
+    scores_csv: string;
+    winner_id: number;
+    player1_votes: number;
+    player2_votes: number;
+}
+
 export enum MATCH_STATE {
     OPEN = 'open',
     COMPLETE = 'complete'
