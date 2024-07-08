@@ -3,6 +3,8 @@ import { FunctionComponent } from "react";
 import { useLazyPutMatchScoresQuery } from "../../../../../../../../services/tournaments";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../store";
+import secureLocalStorage from "react-secure-storage";
+import { Cridentials } from "../../../../../../../../types/cridentials";
 
 interface IProps {
     handleClose: React.Dispatch<React.SetStateAction<boolean>>
@@ -12,7 +14,7 @@ interface IProps {
 const FinishMatchContent: FunctionComponent<IProps> = ({handleClose, setDartsChoosen}) => {
 
     const [ trigger, result] = useLazyPutMatchScoresQuery();
-    const api_key = useSelector((state: RootState) => state.cridentials.password)
+    const cridentials = secureLocalStorage.getItem('cridentials') as Cridentials;
     const {matchId, tournamentId} = useSelector((state: RootState) => state.customerJourney)
     const game = useSelector((state: RootState) => state.counter)
     
@@ -25,7 +27,7 @@ const FinishMatchContent: FunctionComponent<IProps> = ({handleClose, setDartsCho
         handleClose(false);
         setDartsChoosen(undefined);
         trigger({
-            api_key,
+            api_key: cridentials.password,
             matchId,
             tournamentId,
             //TODO: add hooks for mapping data

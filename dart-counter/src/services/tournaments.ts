@@ -1,17 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { TournamentDTO } from '../types/dto/tournaments';
 import { ParticipantDTO } from '../types/dto/participant';
-import { RootState } from '../store';
 import { ApiKey } from '../types/apiKey';
 import { MatchDTO, MatchPayloadDTO } from '../types/dto/matches';
+import secureLocalStorage from 'react-secure-storage';
+import { Cridentials } from '../types/cridentials';
 
 export const tournamentsApi = createApi({
     reducerPath: 'tournamentsApi',
     baseQuery: fetchBaseQuery({ 
         baseUrl: `https://api.challonge.com/v1/`,
-        prepareHeaders: (headers, {getState}) => {
-            headers.set('Username', (getState() as RootState).cridentials.username);
-            headers.set('Password', (getState() as RootState).cridentials.password);
+        prepareHeaders: (headers) => {
+            const cridentials = secureLocalStorage.getItem("cridentials") as Cridentials;
+            headers.set('Username', cridentials.username);
+            headers.set('Password', cridentials.password);
         } }),
     endpoints: (builder) => ({
       getTournaments: builder.query<TournamentDTO[], ApiKey>({

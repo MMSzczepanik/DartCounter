@@ -1,9 +1,10 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { setCridentials } from "../../../../reducers/cridentialsReducer";
 import { store } from "../../../../store";
 import { goNext } from "../../../../reducers/viewMenagerReducer";
+import secureLocalStorage from "react-secure-storage";
+import { useUpdateEffect } from 'primereact/hooks';
 
 interface LoginForm {
     username: string,
@@ -13,9 +14,14 @@ interface LoginForm {
 const LoginView: FunctionComponent = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>();
     const onSubmit = (data: LoginForm) => {
-    store.dispatch(setCridentials(data))
-    store.dispatch(goNext())
+        secureLocalStorage.setItem("cridentials", data)
+        store.dispatch(goNext())
     }
+    const cridentials = secureLocalStorage.getItem("cridentials");
+
+    useEffect(() => {
+        cridentials && store.dispatch(goNext());
+    }, [])
     
     return (
         <Grid className="h-screen flex items-center justify-center min-w-full">

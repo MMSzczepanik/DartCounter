@@ -2,21 +2,21 @@ import { FunctionComponent, useEffect } from "react";
 import { useLazyGetParticipantsByTournamentIdQuery } from "../../../../../../../../services/tournaments";
 import { CircularProgress, Grid } from "@mui/material";
 import ParticipantView from "./children/ParticipantView/ParticipantView";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../../../store";
+import secureLocalStorage from "react-secure-storage";
+import { Cridentials } from "../../../../../../../../types/cridentials";
 
 interface IProps {
     torunamentId: number;
 }
 
 const ParticipantsView: FunctionComponent<IProps> = ({torunamentId}) => {
-    const api_key = useSelector((state: RootState) => state.cridentials.password)
+    const cridentials = secureLocalStorage.getItem('cridentials') as Cridentials;
     const [ trigger, result ] = useLazyGetParticipantsByTournamentIdQuery();
 
     useEffect(()=>{
         !result.data && trigger({
             tournamentId: torunamentId,
-            api_key})
+            api_key: cridentials.password})
     })
 
     return (

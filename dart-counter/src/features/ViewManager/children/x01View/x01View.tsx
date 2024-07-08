@@ -8,15 +8,17 @@ import { CircularProgress, Grid } from "@mui/material";
 import classNames from "classnames";
 import { usePostMatchUnderwayQuery } from "../../../../services/tournaments";
 import { goBack } from "../../../../reducers/viewMenagerReducer";
+import secureLocalStorage from "react-secure-storage";
+import { Cridentials } from "../../../../types/cridentials";
 
 const X01View: FunctionComponent = () => {
-    const {players, actualPlayer, actualLeg} = useSelector((state: RootState) => state.counter.game)
-    const api_key = useSelector((state: RootState) => state.cridentials.password);
+    const {players, actualPlayer, actualLeg} = useSelector((state: RootState) => state.counter.game);
+    const cridentials = secureLocalStorage.getItem('cridentials') as Cridentials;
     const {tournamentId, matchId} = useSelector((state: RootState) => state.customerJourney);
     const { data, error, isLoading } = usePostMatchUnderwayQuery({
         tournamentId,
         matchId,    
-        api_key
+        api_key: cridentials.password
     });
 
     useEffect( () => {

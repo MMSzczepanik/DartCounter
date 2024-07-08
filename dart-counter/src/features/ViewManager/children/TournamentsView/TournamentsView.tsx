@@ -2,18 +2,20 @@ import { FunctionComponent, useEffect } from "react";
 import TournamentView from "./children/TournamentView/TournamentView";
 import { CircularProgress, Grid } from "@mui/material";
 import { useGetTournamentsQuery } from "../../../../services/tournaments";
-import { RootState, store } from "../../../../store";
+import { store } from "../../../../store";
 import { goBack } from "../../../../reducers/viewMenagerReducer";
-import { useSelector } from "react-redux";
 import classNames from "classnames";
+import secureLocalStorage from "react-secure-storage";
+import { Cridentials } from "../../../../types/cridentials";
 
 const TournamentsView: FunctionComponent = () => {
-    const api_key = useSelector((state: RootState) => state.cridentials.password)
-    const { data, error, isLoading } = useGetTournamentsQuery({api_key});
+    const cridentials = secureLocalStorage.getItem("cridentials") as Cridentials;
+    const { data, error, isLoading } = useGetTournamentsQuery({api_key: cridentials.password});
 
     useEffect( () => {
         if(error){
             store.dispatch(goBack())
+            secureLocalStorage.removeItem("cridentials");
         }
     })
 

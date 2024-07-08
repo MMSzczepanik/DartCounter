@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { TOURNAMENT_STATE, TournamentDTO } from "../../../../../../types/dto/tournaments";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import ParticipantsView from "./children/ParticipantsView/ParticipantsView";
 import classNames from "classnames";
 import { store } from "../../../../../../store";

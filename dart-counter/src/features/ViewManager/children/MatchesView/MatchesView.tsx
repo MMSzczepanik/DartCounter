@@ -6,18 +6,20 @@ import { CircularProgress, Grid } from "@mui/material";
 import classNames from "classnames";
 import { mapMatch } from "../../../../mappers/matchMapper";
 import MatchView from "./children/MatchView/MatchView";
+import secureLocalStorage from "react-secure-storage";
+import { Cridentials } from "../../../../types/cridentials";
 
 const MatchesView: FunctionComponent = () => {
 
     const tournamentId = useSelector((state: RootState) => state.customerJourney.tournamentId);
-    const api_key = useSelector((state: RootState) => state.cridentials.password);
+    const cridentials = secureLocalStorage.getItem('cridentials') as Cridentials;
     const { data: matchesData, isLoading: matchesIsLoading } = useGetMatchesByTournamentQuery({
         tournamentId,
-        api_key
+        api_key: cridentials.password
     });
     const { data: pariticipantsData, isLoading: partinipantsIsLoading } = useGetParticipantsByTournamentIdQuery({
         tournamentId,
-        api_key
+        api_key: cridentials.password
     });
 
     const data = matchesData && pariticipantsData;
