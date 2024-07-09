@@ -4,10 +4,22 @@ import { FunctionComponent } from "react";
 import { useSelector } from "react-redux";
 import { RootState, store } from "../../store";
 import { getStepConfig } from "../../config/steps";
-import { goBack } from "../../reducers/viewMenagerReducer";
+import { changeView, goBack } from "../../reducers/viewMenagerReducer";
+import secureLocalStorage from "react-secure-storage";
+import { VIEW_TYPE } from "../../types/viewType";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 interface IProps {
     title: string;
+}
+
+const goBackHandler = () => {
+    store.dispatch(goBack())
+}
+
+const logoutHandler = () => {
+    secureLocalStorage.removeItem("cridentials");
+    store.dispatch(changeView({view: VIEW_TYPE.LOGIN}));
 }
 
 const TopHeader: FunctionComponent<IProps> = ({title}) => {
@@ -24,9 +36,12 @@ const TopHeader: FunctionComponent<IProps> = ({title}) => {
                     <Typography variant="h4">{title}</Typography>
             </Grid>
                 <Grid item xs={2}>
-                {getStepConfig[activeView].goBack && <Button size={"large"} startIcon={<KeyboardBackspaceOutlined />} onClick={() => store.dispatch(goBack())}>
+                {getStepConfig[activeView].goBack && <Button size={"large"} startIcon={<KeyboardBackspaceOutlined />} onClick={goBackHandler}>
                         Back                   
                     </Button>}
+                {
+                getStepConfig[activeView].logout && <Button size={"large"} startIcon={<LogoutIcon />} onClick={logoutHandler}>Logout</Button>
+                }
             </Grid>
         </Grid>
     )
