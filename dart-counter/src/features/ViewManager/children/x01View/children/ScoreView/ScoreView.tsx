@@ -5,6 +5,7 @@ import { Player } from "../../../../../../types/player";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../store";
 import { getAvarage } from "../../../../../../utils/avarageUtils";
+import ScoresHistory from "./children/ScoresHistory/ScoresHistory";
 
 interface Props {
     index: number;
@@ -23,20 +24,25 @@ const ScoreView: FunctionComponent<Props> = ({
     return (
     <Grid container direction='row' className={'text-center text-4xl'
     }>
-        <Grid container xs={7} direction='row' className={classNames(
-        'content-center text-center border-[2px] flex items-center justify-center border-blue-700',
-        {
-            'border-solid bg-blue-300' : !isActualPlayer
-        },
-        {
-            'border-solid  bg-blue-500' : isActualPlayer
-        }, 'px-5 py-5')}> 
-            <Grid item xs={10}>
-                <Typography variant="h2">{player.name}</Typography>
+        <Grid direction="column" xs={7} className={classNames(
+            'content-center text-center border-[2px] flex items-center justify-center border-blue-700',
+            {
+                'border-solid bg-blue-300' : !isActualPlayer
+            },
+            {
+                'border-solid  bg-blue-500' : isActualPlayer
+            }, 'px-5 py-5')}>
+            <Grid container direction='row' className="content-center text-center flex items-center justify-center"> 
+                <Grid item xs={10}>
+                    <Typography variant="h2">{player.name}</Typography>
+                </Grid>
+                {avarage && <Grid item xs={2}>
+                    <Typography variant="h5">{`(${avarage})`}</Typography>
+                </Grid>}
             </Grid>
-            {avarage && <Grid item xs={2}>
-                <Typography variant="h5">{`(${avarage})`}</Typography>
-            </Grid>}
+            <Grid>
+                <ScoresHistory playerIndex={index}/>
+            </Grid>
         </Grid>
         <Grid item  xs={4} className={classNames(
         'content-center text-center border-[2px] border-blue-700',
