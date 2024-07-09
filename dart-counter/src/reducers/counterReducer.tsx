@@ -91,9 +91,10 @@ export const counterSlice = createSlice({
             }))
         }
       }),
+      resetCounter: () => initialState
     },
   })
 
-export const {confirmScore, setPlayers, endLeg} = counterSlice.actions
+export const {confirmScore, setPlayers, endLeg, resetCounter} = counterSlice.actions
 export default counterSlice.reducer;
 

@@ -1,10 +1,12 @@
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, CircularProgress, Grid, Typography } from "@mui/material";
 import { FunctionComponent } from "react";
 import { useLazyPutMatchScoresQuery } from "../../../../../../../../services/tournaments";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../../../store";
+import { RootState, store } from "../../../../../../../../store";
 import secureLocalStorage from "react-secure-storage";
 import { Cridentials } from "../../../../../../../../types/cridentials";
+import { goBack } from "../../../../../../../../reducers/viewMenagerReducer";
+import { resetCounter } from "../../../../../../../../reducers/counterReducer";
 
 interface IProps {
     handleClose: React.Dispatch<React.SetStateAction<boolean>>
@@ -24,8 +26,6 @@ const FinishMatchContent: FunctionComponent<IProps> = ({handleClose, setDartsCho
     }
 
     const finishHandler = () => {
-        handleClose(false);
-        setDartsChoosen(undefined);
         trigger({
             api_key: cridentials.password,
             matchId,
@@ -37,28 +37,40 @@ const FinishMatchContent: FunctionComponent<IProps> = ({handleClose, setDartsCho
                 player1_votes: game.game.players[0].wonLegs,
                 player2_votes: game.game.players[1].wonLegs
             }
+        }).then(({isSuccess}) => {
+            if(isSuccess){
+                handleClose(false);
+                setDartsChoosen(undefined);
+                store.dispatch(goBack())
+                store.dispatch(resetCounter())
+            }
         })
     }
 
     return (
         <>
-            <Grid item >
-                <Typography variant='h3' className="pb-2">What are you going ???</Typography>
-            </Grid>
-            <Grid item className="pb-2">
-                <Button variant="contained" size="large"
-                    onClick={continueHandler}
-                >
-                    CONTINUE
-                </Button>
-            </Grid>
-            <Grid item>
-                <Button variant="contained" size="large"
-                    onClick={finishHandler}
-                >
-                    FINISH
-                </Button>
-            </Grid>
+            {
+                result.isLoading ? <CircularProgress /> : 
+                    <>
+                        <Grid item >
+                            <Typography variant='h3' className="pb-2">What are you going ???</Typography>
+                        </Grid>
+                        <Grid item className="pb-2">
+                            <Button variant="contained" size="large"
+                                onClick={continueHandler}
+                            >
+                                CONTINUE
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" size="large"
+                                onClick={finishHandler}
+                            >
+                                FINISH
+                            </Button>
+                        </Grid>
+                    </>
+                }
         </>
     )
 }

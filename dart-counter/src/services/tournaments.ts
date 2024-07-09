@@ -15,6 +15,7 @@ export const tournamentsApi = createApi({
             headers.set('Username', cridentials.username);
             headers.set('Password', cridentials.password);
         } }),
+    keepUnusedDataFor: 1,
     endpoints: (builder) => ({
       getTournaments: builder.query<TournamentDTO[], ApiKey>({
         query: ({api_key}) => `tournaments.json?api_key=${api_key}`,
