@@ -8,6 +8,7 @@ export interface MatchDetailsDTO {
     player2_id: number;
     state: MATCH_STATE;
     scores_csv: string;
+    round: number;
     winner_id: number;
 }
 

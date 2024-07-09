@@ -33,8 +33,8 @@ const X01View: FunctionComponent = () => {
             )}>
             {isLoading && <CircularProgress />}
             {data && 
-                <>
-                    <Grid container direction='row' xs={9}>
+                <Grid container>
+                    <Grid container item direction='column' xs={9}>
                         {Children.toArray(
                                     players.map((player, key) => (
                                             <ScoreView actualPlayerId={actualPlayer} actualScore={getActualScoreForPlayer(player, actualLeg)} player={player} index={key}/>
@@ -45,7 +45,7 @@ const X01View: FunctionComponent = () => {
                     <Grid xs={3}>
                         <Calculator />
                     </Grid>
-                </>
+                </Grid>
             }
     </Grid>
     )
